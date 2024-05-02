@@ -5,10 +5,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "pelicula")
 public class Pelicula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String titulo;
     private String director;
@@ -20,7 +21,7 @@ public class Pelicula {
     }
 
     // Constructor con parámetros
-    public Pelicula(String titulo, String director, int duracion, LocalDate fechaEstreno) {
+    public Pelicula(int id, String titulo, String director, int duracion, LocalDate fechaEstreno) {
         this.titulo = titulo;
         this.director = director;
         this.duracion = duracion;
@@ -28,11 +29,11 @@ public class Pelicula {
     }
 
     // Getters y setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

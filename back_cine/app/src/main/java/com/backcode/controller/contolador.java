@@ -13,14 +13,19 @@ import org.springframework.ui.Model;
 import com.backcode.model.Pelicula;
 import com.backcode.model.Reservas;
 import com.backcode.interfaces.IPelicula;
+import com.backcode.interfaceservice.SPelicula;
+import com.backcode.interfaceservice.SReservas;
 
 @Controller
 @RequestMapping
 public class contolador {
 
     @Autowired
-    private IPelicula service;
+    private SPelicula service;
 
+    @Autowired
+    private SReservas reservasService;
+    
     @GetMapping("/listar")
     public String listar(Model model){
         List<Pelicula>pelicula=service.listar();
@@ -30,18 +35,13 @@ public class contolador {
 
     @PostMapping("/crearReserva")
     public String crearReserva(@ModelAttribute("reserva") Reservas reserva) {
-        // Lógica para guardar la reserva en la base de datos
-        // Puedes usar el servicio SReservas para manejar la lógica de creación de reservas
-        return "redirect:/listar"; // Redirige a la página de listado después de crear la reserva
+        reservasService.crearReserva(reserva);
+        return "redirect:/listar";
     }
 
     @GetMapping("/borrarReserva/{id}")
-    public String borrarReserva(@PathVariable("id") Long id) {
-        // Lógica para borrar la reserva con el ID proporcionado
-        // Puedes usar el servicio SReservas para manejar la lógica de borrado de reservas
-        return "redirect:/listar"; // Redirige a la página de listado después de borrar la reserva
-    }
-
-    
+    public String borrarReserva(@PathVariable("id") int id) {
+        reservasService.borrarReserva(id);
+        return "redirect:/listar";
+    }   
 }
-
